@@ -1,7 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
 
-export default function TodoInput() {
+export default function TodoInput({ onAdd }) {
     const [task, setTask] = useState('')
     const userid = localStorage.getItem("userid")
     const handleAdd = async () => {
@@ -10,7 +10,10 @@ export default function TodoInput() {
                 task,
                 userid
             })
-            console.log(result)
+            setTask('');
+            if (onAdd && result.data && result.data.todo) {
+                onAdd(result.data.todo);
+            }
 
         }
         catch (error) {
@@ -20,7 +23,7 @@ export default function TodoInput() {
     }
     return (<>
         <div className="flex-col">
-            <input className="border-2 bg-amber-50" type="text" placeholder="Enter task" onChange={(e) => setTask(e.target.value)} />
+            <input className="border-2 bg-amber-50" type="text" placeholder="Enter task" value={task} onChange={(e) => setTask(e.target.value)} />
             <button className="border-2 m-2 px-1 bg-red-400" onClick={handleAdd} type="button">Add</button>
         </div>
     </>)

@@ -14,6 +14,9 @@ export default function SigninCard() {
                 email,
                 password
             })
+
+            localStorage.setItem("userid",result.data.userid)//storing userid in localstorage after succesfully signed in 
+
             console.log("Login succesful:", result.data)
             alert("Login succesful")
             navigate("/todo")
@@ -23,8 +26,7 @@ export default function SigninCard() {
         }
     }
     return (<>
-        <div className="bg-blue-400"></div>
-
+    
         <div>
             <h1 className="font-extrabold text-4xl font-serif mb-3">SIGNIN</h1>
         </div>
@@ -51,6 +53,9 @@ export default function SigninCard() {
                     onClick={handleLogin}
                 >LOG IN</button>
             </div>
+        </div>
+        <div>
+            <p></p>
         </div>
 
     </>)

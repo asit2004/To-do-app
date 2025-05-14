@@ -52,7 +52,7 @@ export default function SignupCard() {
         <div className="p-2 mt-1.5 flex justify-center ">
             <button className="border-2 p-3  rounded-lg bg-black text-white hover:bg-blue-800 hover:scale-105"
                 type="button"
-                onClick={handleSignup}>Signup</button>
+                onClick={handleSignup}>Register</button>
         </div>
     </>)
 }

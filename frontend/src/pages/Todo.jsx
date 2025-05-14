@@ -9,7 +9,12 @@ export default function Todo() {
     const navigate = useNavigate()
 
     useEffect(() => {
-       
+        if (!userid || userid === "null") {
+            navigate('/signin');
+            return;
+        }
+
+
         const getTodo = async () => {
             try {
                 const result = await axios.get(`http://localhost:8080/gettodo?userid=${userid}`);
@@ -56,7 +61,7 @@ export default function Todo() {
             console.error(error);
         }
     }
-    
+
     const handleLogout = async () => {
         try {
             const response = await axios.post("http://localhost:8080/logout", { userid })
@@ -71,14 +76,21 @@ export default function Todo() {
     }
 
     return (<>
-        <div className="min-h-screen bg-blue-400 flex items-center justify-center px-4 py-8">
-            <nav>
-                <button type="button" onClick={handleLogout}>Logout</button>
-            </nav>
+        <nav className=" justify-items-center">
+            <button
+                type="button"
+
+                onClick={handleLogout}>
+                Logout
+            </button>
+        </nav>
+        <div className="min-h-screen bg-gradient-to-tl from-blue-400 to-black flex items-center justify-center px-4 py-8">
+
             <div className="w-full max-w-2xl bg-white  rounded-lg shadow-md p-6">
                 <div className="justify-items-center">
                     <h1 className="text-3xl">To do</h1>
                     <TodoInput />
+                    
                 </div>
                 <div className="flex flex-col gap-2"> {
                     todos.length === 0
