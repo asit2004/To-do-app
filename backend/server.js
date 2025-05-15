@@ -44,7 +44,7 @@ app.post("/addtodo", async (req, res) => {
         const newTodo = await new Todo({ task, user: userid })
 
         await newTodo.save()
-        res.json({ message: "Todo added" })
+        res.json({ message: "Todo added",todo:newTodo })
     } catch (err) {
         console.error("Error in POST /:", err);
         res.status(500).json({ error: "Internal server error", details: err.message });
@@ -80,7 +80,7 @@ app.get("/gettodo", async (req, res) => {
         return res.status(400).json({ error: "User does not exist" });
     }
     try {
-        const getTodo = await Todo.find({ user: userid })
+        const getTodo = await Todo.find({ user: userid }).sort({createdAt:-1})
         console.log(getTodo);
         res.json({ Todo: getTodo })
     } catch (err) {
@@ -132,6 +132,30 @@ app.put("/updatetask", async (req, res) => {
         res.status(400).json({ error: "Internal server error", details: err.message });
     }
 });
+
+app.put("/edittask", async (req, res) => {
+    const { userid, taskid,newText } = req.body
+
+    if (!userid || !taskid ||!newText) {
+        return res.status(400).json({ error: "UserId, TaskId and newText are required" });
+    }
+    try {
+        const updatedTask = await Todo.findOneAndUpdate(
+            {_id:taskid,user: userid},
+            {task:newText},
+            {new:true}
+        )
+        if (!updatedTask) {
+            return res.status(404).json({ error: "Task not found" })
+        }
+        
+        res.json({ message: "Task text updated succesfully", updatedTask })
+    } catch (err) {
+        console.error("Error in POST /edittask:", err);
+        res.status(500).json({ error: "Internal server error", details: err.message });
+    }
+});
+
 
 app.post("/logout", async (req, res) => {
     const { userid } = req.body
