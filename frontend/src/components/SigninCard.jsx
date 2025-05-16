@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 export default function SigninCard() {
 
-    const [email,setEmail] = useState("")
-    const [password,setPassword] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
     const handleLogin = async () => {
@@ -15,7 +15,7 @@ export default function SigninCard() {
                 password
             })
 
-            localStorage.setItem("userid",result.data.userid)//storing userid in localstorage after succesfully signed in 
+            localStorage.setItem("userid", result.data.userid)//storing userid in localstorage after succesfully signed in 
 
             console.log("Login succesful:", result.data)
             alert("Login succesful")
@@ -25,38 +25,53 @@ export default function SigninCard() {
             alert("Login failed")
         }
     }
-    return (<>
-    
-        <div>
-            <h1 className="font-extrabold text-4xl font-serif mb-3">SIGNIN</h1>
-        </div>
 
-        <div className="flex flex-col">
-            <h2 className="mb-1">Email</h2>
-            <input className="border-2 rounded-lg p-2 bg-amber-50"
-                type="text"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} />
+    return (
+        <div className="flex items-center justify-center min-h-screen px-4">
+            <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+                <div className="mb-5 text-center">
+                    <h1 className="font-extrabold text-3xl mb-2">Welcome back</h1>
+                    <h2 className="text-gray-500">Enter your credentials to continue</h2>
+                </div>
 
-            <h2 className="mt-2 mb-1">Password</h2>
-            <input className="border-2 rounded-lg p-2 bg-amber-50"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e => setPassword(e.target.value))} />
+                <div className="flex flex-col">
+                    <label className="mb-1 font-medium">Email</label>
+                    <input
+                        className="border-2 rounded-lg p-2 bg-amber-50 w-full"
+                        type="text"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label className="mt-4 mb-1 font-medium">Password</label>
+                    <input
+                        className="border-2 rounded-lg p-2 bg-amber-50 w-full"
+                        type="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-            <div className="p-2 mt-1.5 flex justify-center ">
-                <button
-                    type="button"
-                    className="border-2 p-3  rounded-lg bg-black text-white hover:bg-blue-800 hover:scale-105"
-                    onClick={handleLogin}
-                >LOG IN</button>
+                    <div className="mt-6 flex justify-center">
+                        <button
+                            type="button"
+                            className="w-full border-2 p-3 rounded-lg bg-black text-white hover:bg-gradient-to-tl to-sky-600 hover:scale-105 transition-transform duration-200"
+                            onClick={handleLogin}
+                        >
+                            LOG IN
+                        </button>
+                    </div>
+                </div>
+
+                <div className="text-center mt-4">
+                    <p className="text-sm text-gray-600">Don’t have an account? 
+                        <a
+                        className="text-blue-600 cursor-pointer"
+                        href="/signup"
+                    >Register</a>
+                    </p>
+                </div>
             </div>
         </div>
-        <div>
-            <p></p>
-        </div>
-
-    </>)
+    )
 }

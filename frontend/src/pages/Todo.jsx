@@ -104,75 +104,187 @@ export default function Todo() {
         }
     }
 
-    return (<>
+    // return (<>
 
-        <div className="min-h-screen bg-gradient-to-tl from-blue-400 to-black ">
-            <nav className="flex justify-end text-3xl">
-                <button
-                    type="button"
-                    className="bg-blue-950 hover:bg-blue-800 text-white font-medium px-4 py-2 rounded-md transition"
-                    onClick={handleLogout}>
-                    Logout
-                </button>
-            </nav>
-            <div className="flex items-center justify-center px-4 py-8">
-                <div className="w-full max-w-2xl bg-gradient-to-br from-cyan-600 to-emerald-00  rounded-lg shadow-md p-6">
-                    <div className="justify-items-center">
-                        <h1 className="text-3xl font-bold text-center text-blue-700 mb-4">Your Tasks</h1>
+    //     <div className="min-h-screen bg-gradient-to-tl from-blue-400 to-black ">
+    //         <nav className="flex justify-end text-3xl">
+    //             <button
+    //                 type="button"
+    //                 className="bg-blue-950 hover:bg-blue-800 text-white font-medium px-4 py-2 rounded-md transition"
+    //                 onClick={handleLogout}>
+    //                 Logout
+    //             </button>
+    //         </nav>
+    //         <div className="flex items-center justify-center px-4 py-8">
+    //             <div className="w-full max-w-2xl bg-gradient-to-br from-cyan-600 to-emerald-00  rounded-lg shadow-md p-6">
+    //                 <div className="justify-items-center">
+    //                     <h1 className="text-3xl font-bold text-center text-blue-700 mb-4">Your Tasks</h1>
+    //                     <TodoInput />
+    //                 </div>
+
+    //                 <div className="flex flex-col gap-2"> {
+    //                     todos.length === 0
+    //                         ?
+    //                         <div><h2>No Record</h2></div>
+    //                         :
+    //                         todos.map(todo => (
+    //                             <div key={todo._id} className="border p-4 bg-gradient-to-r from-neutral-950 to-indigo-200  rounded flex flex-col sm:flex-row justify-between items-center gap-2 hover:shadow-md transition">
+    //                                 <input type="checkbox"
+    //                                     className="w-4 h-5"
+    //                                     checked={todo.completed}
+    //                                     onChange={() => handleComplete(todo._id, todo.completed)} />
+    //                                 <div className={`flex-1 px-3 py-2 ${todo.completed ? 'line-through text-gray-300' : 'text-white'}`}>
+    //                                     {editTaskId === todo._id ? (
+    //                                         <input
+    //                                             type="text"
+    //                                             value={editText}
+    //                                             onChange={(e) => setEditText(e.target.value)}
+    //                                             className="border rounded px-2 py-1 w-full"
+    //                                         />
+    //                                     ) : (
+    //                                         todo.task
+    //                                     )}
+    //                                     <div>Added on:{new Date(todo.createdAt).toLocaleDateString()}</div>
+    //                                 </div>
+    //                                 <button
+    //                                     onClick={() => handleDelete(todo._id)}
+    //                                     type="button"
+    //                                     className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+    //                                 >
+    //                                     Delete
+    //                                 </button>
+    //                                 <button
+    //                                     type="button"
+    //                                     className="bg-blue-400 hover:bg-blue-800 text-gray-200 p-1 rounded-md"
+    //                                     onClick={() => {
+    //                                         if (editTaskId === todo._id) {
+    //                                             handleSaveEdit(todo._id)
+    //                                         }
+    //                                         else {
+    //                                             setEditTaskId(todo._id)
+    //                                             setEditText(todo.task)
+    //                                         }
+    //                                     }}
+    //                                 >
+    //                                     {editTaskId === todo._id ? "Save" : "Edit"}
+    //                                 </button>
+    //                             </div>
+    //                         ))
+    //                 }</div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // </>)
+     return (
+        <div className="min-h-screen bg-gradient-to-tl from-blue-400 to-black text-gray-100">
+            {/* Header with navigation */}
+            <header className="bg-black bg-opacity-30 backdrop-blur-sm shadow-lg">
+                <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                    <h1 className="text-2xl font-bold text-white">DoIt</h1>
+                    <button
+                        onClick={handleLogout}
+                        className="bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-md"
+                    >
+                        Logout
+                    </button>
+                </div>
+            </header>
+
+            <main className="max-w-3xl mx-auto px-4 py-8">
+                {/* Card Container */}
+                <div className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+                    {/* Card Header */}
+                    <div className="bg-gradient-to-r from-blue-600 to-cyan-800 px-6 py-4">
+                        <h2 className="text-2xl font-bold text-white">Your Tasks</h2>
+                    </div>
+
+                    {/* Todo Input */}
+                    <div className="p-6 bg-gray-900 bg-opacity-40 justify-items-center">
                         <TodoInput />
                     </div>
 
-                    <div className="flex flex-col gap-2"> {
-                        todos.length === 0
-                            ?
-                            <div><h2>No Record</h2></div>
-                            :
-                            todos.map(todo => (
-                                <div key={todo._id} className="border p-4 bg-gradient-to-r from--950 to-indigo-200  rounded flex flex-col sm:flex-row justify-between items-center gap-2 hover:shadow-md transition">
-                                    <input type="checkbox"
-                                        className="w-4 h-5"
-                                        checked={todo.completed}
-                                        onChange={() => handleComplete(todo._id, todo.completed)} />
-                                    <div className={`flex-1 px-3 py-2 ${todo.completed ? 'line-through text-gray-300' : 'text-white'}`}>
-                                        {editTaskId === todo._id ? (
-                                            <input
-                                                type="text"
-                                                value={editText}
-                                                onChange={(e) => setEditText(e.target.value)}
-                                                className="border rounded px-2 py-1 w-full"
-                                            />
-                                        ) : (
-                                            todo.task
-                                        )}
-                                        <div>Added on:{new Date(todo.createdAt).toLocaleDateString()}</div>
+                    {/* Todo List */}
+                    <div className="p-6">
+                        {todos.length === 0 ? (
+                            <div className="text-center py-6">
+                                
+                                <p className="mt-4 text-gray-400 text-lg">No tasks yet. Add your first task above!</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {todos.map(todo => (
+                                    <div 
+                                        key={todo._id} 
+                                        className={`rounded-lg transition-all duration-300 ${
+                                            todo.completed 
+                                                ? 'bg-gray-700 bg-opacity-30' 
+                                                : 'bg-gray-700'
+                                        } shadow-md hover:shadow-lg`}
+                                    >
+                                        <div className="p-4 flex items-center gap-3">
+                                            {/* Checkbox with custom styling */}
+                                            <div className="flex-shrink-0">
+                                                <input 
+                                                    type="checkbox"
+                                                    checked={todo.completed}
+                                                    onChange={() => handleComplete(todo._id, todo.completed)}
+                                                    className="w-5 h-5 rounded-full border-2 border-blue-400 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800 cursor-pointer"
+                                                />
+                                            </div>
+                                            
+                                            {/* Task Content */}
+                                            <div className="flex-1">
+                                                {editTaskId === todo._id ? (
+                                                    <input
+                                                        type="text"
+                                                        value={editText}
+                                                        onChange={(e) => setEditText(e.target.value)}
+                                                        className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                        autoFocus
+                                                    />
+                                                ) : (
+                                                    <div>
+                                                        <p className={`text-lg ${todo.completed ? 'line-through text-gray-400' : 'text-white'}`}>
+                                                            {todo.task}
+                                                        </p>
+                                                        <p className="text-xs text-gray-400 mt-1">
+                                                            Added on: {new Date(todo.createdAt).toLocaleDateString()}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            
+                                            {/* Action Buttons */}
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={() => {
+                                                        if (editTaskId === todo._id) {
+                                                            handleSaveEdit(todo._id)
+                                                        } else {
+                                                            setEditTaskId(todo._id)
+                                                            setEditText(todo.task)
+                                                        }
+                                                    }}
+                                                    className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200 shadow-sm"
+                                                >
+                                                    {editTaskId === todo._id ? "Save" : "Edit"}
+                                                </button>
+                                                
+                                                <button
+                                                    onClick={() => handleDelete(todo._id)}
+                                                    className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors duration-200 shadow-sm"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button
-                                        onClick={() => handleDelete(todo._id)}
-                                        type="button"
-                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-                                    >
-                                        Delete
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="bg-blue-400 hover:bg-blue-800 text-gray-200 p-1 rounded-md"
-                                        onClick={() => {
-                                            if (editTaskId === todo._id) {
-                                                handleSaveEdit(todo._id)
-                                            }
-                                            else {
-                                                setEditTaskId(todo._id)
-                                                setEditText(todo.task)
-                                            }
-                                        }}
-                                    >
-                                        {editTaskId === todo._id ? "Save" : "Edit"}
-                                    </button>
-                                </div>
-                            ))
-                    }</div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </main>
         </div>
-    </>)
+    );
 }

@@ -23,18 +23,18 @@ export default function TodoInput({ onAdd }) {
 
     }
     return (<>
-        <div className="flex-col">
-            <input className="border-2 bg-amber-50 rounded-lg p-1"
+        <div className="flex-col gap-0.5">
+            <input className="border-2 text-black bg-blue-50 text-balck rounded-lg p-2"
                 type="text"
                 placeholder="Enter a task"
                 value={task}
                 onChange={(e) => setTask(e.target.value)} />
 
             <button
-                className="border-2 m-2 p-1 px-2 rounded-md bg-emerald-400 hover:bg-emerald-800 hover:text-white"
+                className="border-2 m-2 p-1 px-3 rounded-md  hover:bg-gradient-to-tl from-blue-300   hover:border-white"
                 onClick={handleAdd}
                 type="button"
-                disabled
+                
             >
                 Add
             </button>

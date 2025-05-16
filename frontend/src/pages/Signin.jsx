@@ -2,8 +2,8 @@ import SigninCard from "../components/SigninCard";
 
 export default function Signin() {
     return (<>
-        <div className="bg-gradient-to-tl from-blue-400 to-black justify-items-center p-100">
-            <div className="bg-white rounded-2xl p-10">
+       <div className="min-h-screen flex items-center justify-center bg-gradient-to-tl from-blue-400 to-black ">
+            <div className="flex items-center justify-center rounded-2xl">
                 <SigninCard />
             </div>
         </div>
