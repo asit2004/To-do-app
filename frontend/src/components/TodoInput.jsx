@@ -1,11 +1,16 @@
 import { useState } from "react"
 import axios from "axios"
+import {ToastContainer,toast} from 'react-toastify'
 
 export default function TodoInput({ onAdd }) {
     const [task, setTask] = useState('')
     const userid = localStorage.getItem("userid")
 
     const handleAdd = async () => {
+        if (!task.trim()) {
+            toast.error("task cannot be empty")
+            return
+        }
         try {
             const result = await axios.post('http://localhost:8080/addtodo', {
                 task,

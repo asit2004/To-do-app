@@ -4,6 +4,8 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Home from './pages/Home'
 import Todo from './pages/Todo'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
         <Route path='/Signup' element={<Signup />} />
         <Route path='/Todo' element={<Todo />} />
       </Routes>
+      <ToastContainer position="top-center"/>
     </>
   )
 }

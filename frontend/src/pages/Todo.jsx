@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TodoInput from "../components/TodoInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Todo() {
     const [todos, setTodos] = useState([])
@@ -9,6 +10,7 @@ export default function Todo() {
     const navigate = useNavigate()
     const [editTaskId, setEditTaskId] = useState(null)
     const [editText, setEditText] = useState("")
+    
 
 
     useEffect(() => {
@@ -16,6 +18,7 @@ export default function Todo() {
             navigate('/signin');
             return;
         }
+    
 
         const getTodo = async () => {
             try {
@@ -33,13 +36,18 @@ export default function Todo() {
         getTodo();
     }, [])
 
+    const handleAddTodo = (newTodo) => {
+        setTodos(prevTodos => [newTodo, ...prevTodos]);
+      };
+
     const handleDelete = async (taskid) => {
         try {
             const result = await axios.delete(`http://localhost:8080/deletetask?userid=${userid}&taskid=${taskid}`)
             console.log(result.data)
             setTodos(prev => prev.filter(todo => todo._id !== taskid))
+            toast.success("Task deleted succesfully")
         } catch (error) {
-            alert("Error fetching todos")
+            toast.error("Error fetching todos")
             console.error(error);
         }
     }
@@ -59,7 +67,7 @@ export default function Todo() {
                 return updated.sort((a, b) => a.completed - b.completed)
             });
         } catch (error) {
-            alert("Error updating task")
+            toast.error("Error updating task")
             console.error(error);
         }
     }
@@ -70,10 +78,10 @@ export default function Todo() {
             console.log(response.data);
             localStorage.removeItem("userid")
             navigate('/signin')
+            toast.success(`See you soon!`)
         } catch (error) {
-            alert("Error logging out")
+            toast.error("Error logging out")
             console.error(error);
-
         }
     }
 
@@ -180,7 +188,7 @@ export default function Todo() {
             {/* Header with navigation */}
             <header className="bg-black bg-opacity-30 backdrop-blur-sm shadow-lg">
                 <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-white">DoIt</h1>
+                    <h1 className="text-2xl font-bold text-sky-50 drop-shadow-[0_0_10px_rgba(99,102,241,5)] hover:scale-110">Donezo</h1>
                     <button
                         onClick={handleLogout}
                         className="bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 shadow-md"
@@ -195,12 +203,12 @@ export default function Todo() {
                 <div className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
                     {/* Card Header */}
                     <div className="bg-gradient-to-r from-blue-600 to-cyan-800 px-6 py-4">
-                        <h2 className="text-2xl font-bold text-white">Your Tasks</h2>
+                        <h2 className="text-2xl font-bold text-white  transition">Your Tasks</h2>
                     </div>
 
                     {/* Todo Input */}
                     <div className="p-6 bg-gray-900 bg-opacity-40 justify-items-center">
-                        <TodoInput />
+                        <TodoInput onAdd={handleAddTodo}/>
                     </div>
 
                     {/* Todo List */}
@@ -247,9 +255,9 @@ export default function Todo() {
                                                         <p className={`text-lg ${todo.completed ? 'line-through text-gray-400' : 'text-white'}`}>
                                                             {todo.task}
                                                         </p>
-                                                        <p className="text-xs text-gray-400 mt-1">
+                                                        {/* <p className="text-xs text-gray-400 mt-1">
                                                             Added on: {new Date(todo.createdAt).toLocaleDateString()}
-                                                        </p>
+                                                        </p> */}
                                                     </div>
                                                 )}
                                             </div>

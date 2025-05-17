@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export default function SignupCard() {
     const [name, setName] = useState('')
@@ -20,9 +21,10 @@ export default function SignupCard() {
             const userid = result.data.userid
             localStorage.setItem("userid", userid)
             navigate("/todo")
+            toast.success(`Welcome",${name}!`)
         }
         catch (error) {
-            alert("error signing up")
+            toast.error("error signing up")
         }
 
     }
@@ -45,7 +47,7 @@ export default function SignupCard() {
 
                     <label className="mt-2 mb-1 font-medium">Email</label>
                     <input className="border-2 rounded-lg p-2 bg-amber-50"
-                        type="text"
+                        type="email"
                         placeholder="Enter your Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} />
@@ -59,7 +61,7 @@ export default function SignupCard() {
                 </div>
 
                 <div className="p-2 mt-1.5 flex justify-center ">
-                    <button className="border-2 p-3  rounded-lg bg-black text-white hover:bg-blue-800 hover:scale-105"
+                    <button className="border-2 p-3  rounded-lg bg-black text-white hover:bg-gradient-to-tl to-sky-600 hover:scale-105 transition-transform duration-200"
                         type="button"
                         onClick={handleSignup}>Register</button>
                 </div>

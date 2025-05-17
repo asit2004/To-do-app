@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export default function SigninCard() {
 
@@ -18,11 +19,11 @@ export default function SigninCard() {
             localStorage.setItem("userid", result.data.userid)//storing userid in localstorage after succesfully signed in 
 
             console.log("Login succesful:", result.data)
-            alert("Login succesful")
+            toast.success(`Welcome back`)
             navigate("/todo")
         } catch (error) {
             console.error("Login failed:", error.response?.data || error.message);
-            alert("Login failed")
+            toast.error("Login failed")
         }
     }
 
@@ -30,6 +31,7 @@ export default function SigninCard() {
         <div className="flex items-center justify-center min-h-screen px-4">
             <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
                 <div className="mb-5 text-center">
+                    <h1 className="font-extrabold mb-2  text-3xl drop-shadow-[0_0_10px_rgba(9,100,134,7)]">Donezo</h1>
                     <h1 className="font-extrabold text-3xl mb-2">Welcome back</h1>
                     <h2 className="text-gray-500">Enter your credentials to continue</h2>
                 </div>
