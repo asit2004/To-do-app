@@ -16,6 +16,7 @@ function App() {
         <Route path='/Signin' element={<Signin />} />
         <Route path='/Signup' element={<Signup />} />
         <Route path='/Todo' element={<Todo />} />
+        <Route path="/*" element={<Error/>}/>
       </Routes>
       <ToastContainer position="top-center"/>
     </>
