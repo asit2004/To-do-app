@@ -9,7 +9,7 @@ const port = 8080
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors())
 
 mongoose.connect("mongodb://localhost:27017/Todo")
     .then(() => console.log('MongoDB connected'))
