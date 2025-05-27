@@ -3,7 +3,8 @@ import mongoose from "mongoose"
 import cors from "cors"
 import { User } from "./models/User.js";
 import { Todo } from "./models/Todo.js";
-
+import dotenv from "dotenv"
+dotenv.config()
 const app = express();
 const port = 8080
 
@@ -11,7 +12,7 @@ const port = 8080
 app.use(express.json());
 app.use(cors())
 
-mongoose.connect("mongodb://localhost:27017/Todo")
+mongoose.connect (process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection failed:', err));
 
