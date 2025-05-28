@@ -21,7 +21,7 @@ export default function SignupCard() {
             const userid = result.data.userid
             localStorage.setItem("userid", userid)
             navigate("/todo")
-            toast.success(`Welcome",${name}!`)
+            toast.success(`Welcome, ${name}!`)
         }
         catch (error) {
             toast.error("error signing up")

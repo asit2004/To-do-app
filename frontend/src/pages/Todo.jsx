@@ -10,14 +10,14 @@ export default function Todo() {
     const navigate = useNavigate()
     const [editTaskId, setEditTaskId] = useState(null)
     const [editText, setEditText] = useState("")
-    
-    
+
+
     useEffect(() => {
         if (!userid || userid === "null") {
             navigate('/signin');
             return;
         }
-    
+
 
         const getTodo = async () => {
             try {
@@ -37,7 +37,7 @@ export default function Todo() {
 
     const handleAddTodo = (newTodo) => {
         setTodos(prevTodos => [newTodo, ...prevTodos]);
-      };
+    };
 
     const handleDelete = async (taskid) => {
         try {
@@ -111,8 +111,8 @@ export default function Todo() {
         }
     }
 
-    
-     return (
+
+    return (
         <div className="min-h-screen bg-gradient-to-tl from-blue-400 to-black text-gray-100">
             {/* Header with navigation */}
             <header className="bg-black bg-opacity-30 backdrop-blur-sm shadow-lg">
@@ -137,38 +137,37 @@ export default function Todo() {
 
                     {/* Todo Input */}
                     <div className="p-6 bg-gray-900 bg-opacity-40 justify-items-center">
-                        <TodoInput onAdd={handleAddTodo}/>
+                        <TodoInput onAdd={handleAddTodo} />
                     </div>
 
                     {/* Todo List */}
                     <div className="p-6">
                         {todos.length === 0 ? (
                             <div className="text-center py-6">
-                                
+
                                 <p className="mt-4 text-gray-400 text-lg">No tasks yet. Add your first task above!</p>
                             </div>
                         ) : (
                             <div className="space-y-3">
                                 {todos.map(todo => (
-                                    <div 
-                                        key={todo._id} 
-                                        className={`rounded-lg transition-all duration-300 ${
-                                            todo.completed 
-                                                ? 'bg-gray-700 bg-opacity-30' 
-                                                : 'bg-gray-700'
-                                        } shadow-md hover:shadow-lg`}
+                                    <div
+                                        key={todo._id}
+                                        className={`rounded-lg transition-all duration-300 ${todo.completed
+                                            ? 'bg-gray-700 bg-opacity-30'
+                                            : 'bg-gray-700'
+                                            } shadow-md hover:shadow-lg`}
                                     >
                                         <div className="p-4 flex items-center gap-3">
                                             {/* Checkbox with custom styling */}
                                             <div className="flex-shrink-0">
-                                                <input 
+                                                <input
                                                     type="checkbox"
                                                     checked={todo.completed}
                                                     onChange={() => handleComplete(todo._id, todo.completed)}
                                                     className="w-5 h-5 rounded-full border-2 border-blue-400 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800 cursor-pointer"
                                                 />
                                             </div>
-                                            
+
                                             {/* Task Content */}
                                             <div className="flex-1">
                                                 {editTaskId === todo._id ? (
@@ -187,7 +186,7 @@ export default function Todo() {
                                                     </div>
                                                 )}
                                             </div>
-                                            
+
                                             {/* Action Buttons */}
                                             <div className="flex items-center gap-2">
                                                 <button
@@ -203,7 +202,7 @@ export default function Todo() {
                                                 >
                                                     {editTaskId === todo._id ? "Save" : "Edit"}
                                                 </button>
-                                                
+
                                                 <button
                                                     onClick={() => handleDelete(todo._id)}
                                                     className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors duration-200 shadow-sm"
